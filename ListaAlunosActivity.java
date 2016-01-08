@@ -45,15 +45,6 @@ public class ListaAlunosActivity extends Activity {
             }
         });
 
-        listaAlunos.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                String aluno = (String) parent.getItemAtPosition(position);
-                Toast.makeText(ListaAlunosActivity.this, "Aluno:"+aluno, Toast.LENGTH_LONG).show();
-                return true;
-            }
-        });
-
         Button inserir = (Button) findViewById(R.id.floatingButton);
 
         inserir.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +55,8 @@ public class ListaAlunosActivity extends Activity {
                 startActivity(intent);
             }
         });
+
+        registerForContextMenu(listaAlunos);
     }
 
 
@@ -109,7 +102,30 @@ public class ListaAlunosActivity extends Activity {
 
     }
 
-    public void onCreateContextMenu(ContextMenu menu, View view, MenuI) {
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo menuInfo) {
 
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+
+        final AlunoEntity alunoSelecionado = (AlunoEntity) listaAlunos.getItemAtPosition(info.position);
+
+        menu.add("Ligar");
+        menu.add("Achar no Mapa");
+        menu.add("Navegar no site");
+        MenuItem deletar = menu.add("Deletar");
+
+        deletar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+
+
+                AlunoDAOCaelum dao = new AlunoDAOCaelum(ListaAlunosActivity.this);
+                dao.deletar(alunoSelecionado);
+                dao.close();
+                CarregaLista();
+
+                return false;
+            }
+        });
     }
 }
