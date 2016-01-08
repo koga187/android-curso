@@ -81,6 +81,19 @@ public class AlunoDAOCaelum extends SQLiteOpenHelper {
         return alunos;
     }
 
+    public void altera(AlunoEntity aluno) {
+        ContentValues values = new ContentValues();
+
+        values.put("id", aluno.getId());
+        values.put("nome", aluno.getNome());
+        values.put("endereco", aluno.getEndereco());
+        values.put("telefone", aluno.getTelefone());
+        values.put("site", aluno.getSite());
+        values.put("nota", aluno.getNota());
+
+        getWritableDatabase().update(TABELA, values, "id=?", new String[] {aluno.getId().toString()});
+    }
+
     public void deletar(AlunoEntity aluno) {
         String[] args = {aluno.getId().toString()};
         getWritableDatabase().delete(TABELA, "id=?", args);

@@ -1,5 +1,6 @@
 package br.com.caelum.cadastro;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,11 +12,18 @@ import br.com.caelum.cadastro.Entity.AlunoEntity;
 
 public class FormularioActivity extends ActionBarActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario);
+        FormularioHelper helper = new FormularioHelper(this);
+        Intent intent = getIntent();
+
+        AlunoEntity aluno = (AlunoEntity) intent.getSerializableExtra("alunoSelecionado");
+
+        if(aluno != null) {
+            helper.insereDadosFormulario(aluno);
+        }
     }
 
 
@@ -27,19 +35,21 @@ public class FormularioActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_formulario_ok:
 
-                FormularioHelper helper = new FormularioHelper(this);
-                AlunoEntity aluno = helper.pegaAlunoFormulario();
-                AlunoDAOCaelum dao = new AlunoDAOCaelum(this);
-                dao.insere(aluno);
-                dao.close();
-                finish();
+        FormularioHelper helper = new FormularioHelper(this);
+        AlunoDAOCaelum dao = new AlunoDAOCaelum(this);
+        AlunoEntity aluno = helper.pegaAlunoFormulario();
 
-                return false;
-            default:
-                return super.onOptionsItemSelected(item);
+        if(aluno.getId() != null) {
+
+            dao.altera(aluno);
+        } else {
+            dao.insere(aluno);
         }
+
+        dao.close();
+        finish();
+
+        return false;
     }
 }

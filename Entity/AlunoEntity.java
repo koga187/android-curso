@@ -1,9 +1,8 @@
-/**
- * Created by android5519 on 06/01/16.
- */
-
 package br.com.caelum.cadastro.Entity;
-public class AlunoEntity {
+
+import java.io.Serializable;
+
+public class AlunoEntity implements Serializable{
     private Long id;
     private String nome;
     private String telefone;
@@ -51,7 +50,7 @@ public class AlunoEntity {
         this.site = site;
     }
 
-    public double getNota() {
+    public Double getNota() {
         return nota;
     }
 

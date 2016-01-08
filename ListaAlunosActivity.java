@@ -38,13 +38,6 @@ public class ListaAlunosActivity extends Activity {
 
         listaAlunos.setAdapter(adapter);
 
-        listaAlunos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(ListaAlunosActivity.this, "Item posição: "+position, Toast.LENGTH_LONG).show();
-            }
-        });
-
         Button inserir = (Button) findViewById(R.id.floatingButton);
 
         inserir.setOnClickListener(new View.OnClickListener() {
@@ -53,6 +46,18 @@ public class ListaAlunosActivity extends Activity {
                 Toast.makeText(ListaAlunosActivity.this, "Pegadinha!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(ListaAlunosActivity.this, FormularioActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        listaAlunos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent edicao = new Intent(ListaAlunosActivity.this, FormularioActivity.class);
+                AlunoEntity alunoSelecionado = (AlunoEntity) listaAlunos.getItemAtPosition(position);
+                edicao.putExtra("alunoSelecionado", alunoSelecionado);
+
+                startActivity(edicao);
             }
         });
 
