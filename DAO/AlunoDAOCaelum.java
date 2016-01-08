@@ -80,4 +80,9 @@ public class AlunoDAOCaelum extends SQLiteOpenHelper {
 
         return alunos;
     }
+
+    public void deletar(AlunoEntity aluno) {
+        String[] args = {aluno.getId().toString()};
+        getWritableDatabase().delete(TABELA, "id=?", args);
+    }
 }
