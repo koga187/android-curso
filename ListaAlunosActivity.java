@@ -2,6 +2,7 @@ package br.com.caelum.cadastro;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -9,12 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
-
 import java.util.List;
-
 import br.com.caelum.cadastro.DAO.AlunoDAOCaelum;
 import br.com.caelum.cadastro.Entity.AlunoEntity;
 
@@ -37,17 +34,6 @@ public class ListaAlunosActivity extends Activity {
                 android.R.layout.simple_list_item_1, alunos);
 
         listaAlunos.setAdapter(adapter);
-
-        Button inserir = (Button) findViewById(R.id.floatingButton);
-
-        inserir.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(ListaAlunosActivity.this, "Pegadinha!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(ListaAlunosActivity.this, FormularioActivity.class);
-                startActivity(intent);
-            }
-        });
 
         listaAlunos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -114,11 +100,28 @@ public class ListaAlunosActivity extends Activity {
 
         final AlunoEntity alunoSelecionado = (AlunoEntity) listaAlunos.getItemAtPosition(info.position);
 
-        menu.add("Ligar");
-        menu.add("Achar no Mapa");
-        menu.add("Navegar no site");
-        MenuItem deletar = menu.add("Deletar");
+        MenuItem ligar = menu.add("Ligar");
+        Intent IntentLigar = new Intent(Intent.ACTION_CALL);
+        IntentLigar.setData(Uri.parse("tel:" + alunoSelecionado.getTelefone()));
+        ligar.setIntent(IntentLigar);
 
+        MenuItem sms = menu.add("SMS");
+        Intent IntentSMS = new Intent(Intent.ACTION_VIEW);
+        IntentSMS.setData(Uri.parse("sms:"+alunoSelecionado.getTelefone()));
+        IntentSMS.putExtra("sms_body", "s2 Send By Koga App.");
+        sms.setIntent(IntentSMS);
+
+        MenuItem mapa = menu.add("Achar no Mapa");
+        Intent IntentMapa = new Intent(Intent.ACTION_VIEW);
+        IntentMapa.setData(Uri.parse("geo:0,0?z=14&q=:"+alunoSelecionado.getEndereco()));
+        mapa.setIntent(IntentMapa);
+
+        MenuItem site = menu.add("Navegar no site");
+        Intent IntentSite = new Intent(Intent.ACTION_VIEW);
+        IntentSite.setData(Uri.parse("http:"+alunoSelecionado.getSite()));
+        site.setIntent(IntentSite);
+
+        MenuItem deletar = menu.add("Deletar");
         deletar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {

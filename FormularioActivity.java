@@ -12,17 +12,20 @@ import br.com.caelum.cadastro.Entity.AlunoEntity;
 
 public class FormularioActivity extends ActionBarActivity {
 
+    private FormularioHelper helper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario);
-        FormularioHelper helper = new FormularioHelper(this);
+
+        helper = new FormularioHelper(this);
         Intent intent = getIntent();
 
         AlunoEntity aluno = (AlunoEntity) intent.getSerializableExtra("alunoSelecionado");
 
         if(aluno != null) {
-            helper.insereDadosFormulario(aluno);
+            this.helper.insereDadosFormulario(aluno);
         }
     }
 
@@ -36,7 +39,6 @@ public class FormularioActivity extends ActionBarActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        FormularioHelper helper = new FormularioHelper(this);
         AlunoDAOCaelum dao = new AlunoDAOCaelum(this);
         AlunoEntity aluno = helper.pegaAlunoFormulario();
 
