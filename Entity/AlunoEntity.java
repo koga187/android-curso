@@ -1,5 +1,7 @@
 package br.com.caelum.cadastro.Entity;
 
+import android.widget.ImageView;
+
 import java.io.Serializable;
 
 public class AlunoEntity implements Serializable{
@@ -9,6 +11,7 @@ public class AlunoEntity implements Serializable{
     private String endereco;
     private String site;
     private Double nota;
+    private String caminhoFoto;
 
     public Long getId() {
         return id;
@@ -60,5 +63,13 @@ public class AlunoEntity implements Serializable{
 
     public String toString() {
         return this.getNome();
+    }
+
+    public String getCaminhoFoto() {
+        return caminhoFoto;
+    }
+
+    public void setCaminhoFoto(String caminhoFoto) {
+        this.caminhoFoto = caminhoFoto;
     }
 }

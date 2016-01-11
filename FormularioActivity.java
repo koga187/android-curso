@@ -1,10 +1,18 @@
 package br.com.caelum.cadastro;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.provider.SyncStateContract;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+
+import java.io.File;
+
 import br.com.caelum.cadastro.DAO.AlunoDAOCaelum;
 import br.com.caelum.cadastro.Helpers.FormularioHelper;
 import br.com.caelum.cadastro.Entity.AlunoEntity;
@@ -13,6 +21,8 @@ import br.com.caelum.cadastro.Entity.AlunoEntity;
 public class FormularioActivity extends ActionBarActivity {
 
     private FormularioHelper helper;
+    private String localArquivoFoto;
+    private static final Integer IR_PARA_CAMERA = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +37,21 @@ public class FormularioActivity extends ActionBarActivity {
         if(aluno != null) {
             this.helper.insereDadosFormulario(aluno);
         }
+
+        Button foto = helper.getFotoButton();
+
+        foto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                localArquivoFoto = getExternalFilesDir(null) + "/" + System.currentTimeMillis() + ".jpg";
+
+                Intent irParaCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                Uri localFoto = Uri.fromFile(new File(localArquivoFoto));
+                irParaCamera.putExtra(MediaStore.EXTRA_OUTPUT, localFoto);
+
+                startActivityForResult(irParaCamera, IR_PARA_CAMERA);
+            }
+        });
     }
 
 
@@ -53,5 +78,14 @@ public class FormularioActivity extends ActionBarActivity {
         finish();
 
         return false;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == IR_PARA_CAMERA) {
+            helper.carregaImagem(this.localArquivoFoto);
+        } else {
+            this.localArquivoFoto = null;
+        }
     }
 }
