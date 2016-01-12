@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.provider.SyncStateContract;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,7 +13,7 @@ import android.widget.Button;
 
 import java.io.File;
 
-import br.com.caelum.cadastro.DAO.AlunoDAOCaelum;
+import br.com.caelum.cadastro.DAO.AlunoDAO;
 import br.com.caelum.cadastro.Helpers.FormularioHelper;
 import br.com.caelum.cadastro.Entity.AlunoEntity;
 
@@ -65,7 +64,7 @@ public class FormularioActivity extends ActionBarActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        AlunoDAOCaelum dao = new AlunoDAOCaelum(this);
+        AlunoDAO dao = new AlunoDAO(this);
         AlunoEntity aluno = helper.pegaAlunoFormulario();
 
         if(aluno.getId() != null) {

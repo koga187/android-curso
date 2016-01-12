@@ -10,13 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 import br.com.caelum.cadastro.Entity.AlunoEntity;
 
-public class AlunoDAOCaelum extends SQLiteOpenHelper {
+public class AlunoDAO extends SQLiteOpenHelper {
 
     private static final int VERSAO = 3;
     private static final String TABELA = "Alunos";
     private static final String DATABASE = "CadastroCaelum";
 
-    public AlunoDAOCaelum(Context ctx) {
+    public AlunoDAO(Context ctx) {
         super(ctx, DATABASE, null, VERSAO);
     }
 

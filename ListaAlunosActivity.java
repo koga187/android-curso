@@ -12,10 +12,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.List;
-import br.com.caelum.cadastro.DAO.AlunoDAOCaelum;
+import br.com.caelum.cadastro.DAO.AlunoDAO;
 import br.com.caelum.cadastro.Entity.AlunoEntity;
 
 
@@ -28,7 +27,7 @@ public class ListaAlunosActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_alunos);
 
-        AlunoDAOCaelum dao = new AlunoDAOCaelum(this);
+        AlunoDAO dao = new AlunoDAO(this);
         List<AlunoEntity> alunos = dao.getLista();
 
         this.listaAlunos = (ListView) findViewById(R.id.lista_aluno);
@@ -93,7 +92,7 @@ public class ListaAlunosActivity extends Activity {
     }
 
     public void CarregaLista() {
-        AlunoDAOCaelum dao = new AlunoDAOCaelum(this);
+        AlunoDAO dao = new AlunoDAO(this);
         List<AlunoEntity> alunos = dao.getLista();
         dao.close();
 
@@ -139,7 +138,7 @@ public class ListaAlunosActivity extends Activity {
             public boolean onMenuItemClick(MenuItem item) {
 
 
-                AlunoDAOCaelum dao = new AlunoDAOCaelum(ListaAlunosActivity.this);
+                AlunoDAO dao = new AlunoDAO(ListaAlunosActivity.this);
                 dao.deletar(alunoSelecionado);
                 dao.close();
                 CarregaLista();
