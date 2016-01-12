@@ -56,6 +56,10 @@ public class FormularioHelper {
         site.setText(aluno.getSite());
         nota.setProgress(aluno.getNota().intValue());
 
+        if(aluno.getCaminhoFoto() != null) {
+            carregaImagem(aluno.getCaminhoFoto());
+        }
+
         this.aluno = aluno;
     }
 

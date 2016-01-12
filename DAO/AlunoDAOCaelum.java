@@ -12,7 +12,7 @@ import br.com.caelum.cadastro.Entity.AlunoEntity;
 
 public class AlunoDAOCaelum extends SQLiteOpenHelper {
 
-    private static final int VERSAO = 2;
+    private static final int VERSAO = 3;
     private static final String TABELA = "Alunos";
     private static final String DATABASE = "CadastroCaelum";
 
@@ -28,7 +28,8 @@ public class AlunoDAOCaelum extends SQLiteOpenHelper {
                 "telefone TEXT," +
                 "endereco TEXT," +
                 "site TEXT," +
-                "nota REAL" +
+                "nota REAL," +
+                "caminho_foto TEXT" +
                 ");");
     }
 
@@ -46,6 +47,7 @@ public class AlunoDAOCaelum extends SQLiteOpenHelper {
         values.put("endereco", aluno.getEndereco());
         values.put("site", aluno.getSite());
         values.put("nota", aluno.getNota());
+        values.put("caminho_foto", aluno.getCaminhoFoto());
 
         getWritableDatabase().insert(TABELA, null, values);
     }
@@ -58,7 +60,8 @@ public class AlunoDAOCaelum extends SQLiteOpenHelper {
                         "telefone, " +
                         "endereco, " +
                         "site, " +
-                        "nota " +
+                        "nota, " +
+                        "caminho_foto " +
                         "FROM " + TABELA + ";", null);
 
         List<AlunoEntity> alunos = new ArrayList<>();
@@ -72,6 +75,7 @@ public class AlunoDAOCaelum extends SQLiteOpenHelper {
             aluno.setEndereco(cursor.getString(cursor.getColumnIndex("endereco")));
             aluno.setSite(cursor.getString(cursor.getColumnIndex("site")));
             aluno.setNota(cursor.getDouble(cursor.getColumnIndex("nota")));
+            aluno.setCaminhoFoto(cursor.getString(cursor.getColumnIndex("caminho_foto")));
 
             alunos.add(aluno);
         }
@@ -90,6 +94,7 @@ public class AlunoDAOCaelum extends SQLiteOpenHelper {
         values.put("telefone", aluno.getTelefone());
         values.put("site", aluno.getSite());
         values.put("nota", aluno.getNota());
+        values.put("caminho_foto", aluno.getCaminhoFoto());
 
         getWritableDatabase().update(TABELA, values, "id=?", new String[] {aluno.getId().toString()});
     }

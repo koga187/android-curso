@@ -10,7 +10,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
+
 import java.util.List;
 import br.com.caelum.cadastro.DAO.AlunoDAOCaelum;
 import br.com.caelum.cadastro.Entity.AlunoEntity;
@@ -48,6 +51,15 @@ public class ListaAlunosActivity extends Activity {
         });
 
         registerForContextMenu(listaAlunos);
+
+        Button inserir = (Button) findViewById(R.id.floatingButton);
+        inserir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ListaAlunosActivity.this, FormularioActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 

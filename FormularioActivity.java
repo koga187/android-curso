@@ -1,5 +1,6 @@
 package br.com.caelum.cadastro;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
@@ -22,7 +23,7 @@ public class FormularioActivity extends ActionBarActivity {
 
     private FormularioHelper helper;
     private String localArquivoFoto;
-    private static final Integer IR_PARA_CAMERA = 1;
+    private static final Integer IR_PARA_CAMERA = 123;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,10 +83,14 @@ public class FormularioActivity extends ActionBarActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode == IR_PARA_CAMERA) {
+        if (requestCode == IR_PARA_CAMERA) {
+            if (resultCode == Activity.RESULT_OK) {
+
+            }
+            else {
+                this.localArquivoFoto = null;
+            }
             helper.carregaImagem(this.localArquivoFoto);
-        } else {
-            this.localArquivoFoto = null;
         }
     }
 }
