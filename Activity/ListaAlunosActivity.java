@@ -1,4 +1,4 @@
-package br.com.caelum.cadastro;
+package br.com.caelum.cadastro.Activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,8 +14,11 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.List;
+
+import br.com.caelum.cadastro.Adapter.ListaAlunosAdapter;
 import br.com.caelum.cadastro.DAO.AlunoDAO;
 import br.com.caelum.cadastro.Entity.AlunoEntity;
+import br.com.caelum.cadastro.R;
 
 
 public class ListaAlunosActivity extends Activity {
@@ -76,11 +79,6 @@ public class ListaAlunosActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -96,8 +94,7 @@ public class ListaAlunosActivity extends Activity {
         List<AlunoEntity> alunos = dao.getLista();
         dao.close();
 
-        ArrayAdapter<AlunoEntity> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, alunos);
+        ListaAlunosAdapter adapter = new ListaAlunosAdapter(this, alunos);
 
         this.listaAlunos.setAdapter(adapter);
 

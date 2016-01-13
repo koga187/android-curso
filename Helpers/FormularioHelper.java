@@ -3,12 +3,11 @@ package br.com.caelum.cadastro.Helpers;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
-import br.com.caelum.cadastro.FormularioActivity;
+import br.com.caelum.cadastro.Activity.FormularioActivity;
 import br.com.caelum.cadastro.R;
 import br.com.caelum.cadastro.Entity.AlunoEntity;
 

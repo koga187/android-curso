@@ -1,4 +1,4 @@
-package br.com.caelum.cadastro;
+package br.com.caelum.cadastro.Activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -16,6 +16,7 @@ import java.io.File;
 import br.com.caelum.cadastro.DAO.AlunoDAO;
 import br.com.caelum.cadastro.Helpers.FormularioHelper;
 import br.com.caelum.cadastro.Entity.AlunoEntity;
+import br.com.caelum.cadastro.R;
 
 
 public class FormularioActivity extends ActionBarActivity {
