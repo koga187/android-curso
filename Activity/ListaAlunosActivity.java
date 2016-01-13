@@ -1,9 +1,9 @@
 package br.com.caelum.cadastro.Activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,16 +12,20 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.List;
 
 import br.com.caelum.cadastro.Adapter.ListaAlunosAdapter;
+import br.com.caelum.cadastro.Converter.AlunoConverter;
 import br.com.caelum.cadastro.DAO.AlunoDAO;
 import br.com.caelum.cadastro.Entity.AlunoEntity;
 import br.com.caelum.cadastro.R;
+import br.com.caelum.cadastro.Task.EnviarAlunosTask;
+import br.com.caelum.cadastro.WebClient.WebClient;
 
 
-public class ListaAlunosActivity extends Activity {
+public class ListaAlunosActivity extends ActionBarActivity{
 
     private ListView listaAlunos;
 
@@ -77,7 +81,11 @@ public class ListaAlunosActivity extends Activity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        switch (item.getItemId()) {
+            case R.id.enviar_notas:
+                new EnviarAlunosTask(this).execute();
+                return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
