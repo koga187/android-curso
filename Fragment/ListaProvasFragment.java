@@ -29,7 +29,7 @@ public class ListaProvasFragment extends Fragment {
 
         List<ProvaEntity> provas = Arrays.asList(prova1, prova2);
 
-        //this.listViewProvas = (ListView) layoutProvas.findViewById(R.id.lista_prova);
+        this.listViewProvas = (ListView) layoutProvas.findViewById(R.id.lista_prova);
 
         this.listViewProvas.setAdapter(new ArrayAdapter<ProvaEntity>(getActivity(),
                 android.R.layout.simple_list_item_1, provas));
