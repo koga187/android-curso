@@ -12,17 +12,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.List;
 
 import br.com.caelum.cadastro.Adapter.ListaAlunosAdapter;
-import br.com.caelum.cadastro.Converter.AlunoConverter;
 import br.com.caelum.cadastro.DAO.AlunoDAO;
 import br.com.caelum.cadastro.Entity.AlunoEntity;
 import br.com.caelum.cadastro.R;
 import br.com.caelum.cadastro.Task.EnviarAlunosTask;
-import br.com.caelum.cadastro.WebClient.WebClient;
 
 
 public class ListaAlunosActivity extends ActionBarActivity{
@@ -88,6 +85,10 @@ public class ListaAlunosActivity extends ActionBarActivity{
             case R.id.menu_receber_provas:
                 Intent provas = new Intent(this, ProvasActivity.class);
                 startActivity(provas);
+                return true;
+            case R.id.menu_mapa:
+                Intent mapa = new Intent(this, MostraAlunosActivity.class);
+                startActivity(mapa);
                 return true;
 
         }
