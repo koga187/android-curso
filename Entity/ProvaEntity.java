@@ -37,4 +37,9 @@ public class ProvaEntity implements Serializable {
     public void setTopicos(List<String> topicos) {
         this.topicos = topicos;
     }
+
+    @Override
+    public String toString() {
+        return this.getMateria();
+    }
 }
